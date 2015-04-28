@@ -18,7 +18,7 @@
 package org.opendaylight.controller;
 
 import org.opendaylight.controller.sal.core.Node;
-import org.opendaylight.controller.protocol_plugin.openflow;
+import org.opendaylight.controller.protocol_plugin.openflow.IOFStatisticsManager;
 import org.opendaylight.controller.sal.core.NodeConnector;
 import org.opendaylight.controller.sal.match.MatchType;
 import org.opendaylight.controller.sal.reader.FlowOnNode;
@@ -35,7 +35,17 @@ public class StatsCollector {
     private static final Logger logger = LoggerFactory
             .getLogger(StatsCollector.class);
     private ISwitchManager switchManager = null;
+    private IOFStatisticsManager ofStatsManager = null;
 
+    public void setOFStatisticsManager(IOFStatisticsManager s) {
+        this.ofStatsManager = s;
+    }
+
+    public void unsetOFStatisticsManager(IOFStatisticsManager s) {
+        if (this.ofStatsManager == s) {
+            this.ofStatsManager = null;
+        }
+    }
 
     void init() {
         logger.info("INIT called!");
@@ -78,7 +88,7 @@ public class StatsCollector {
         }
 	String s = "0000000496979b9e";
 	long bi = Long.parseLong(s, 16);
-        System.out.println("******Get OF Port Statistics: " + getOFPortStatistics(bi).toString() + "***********");
+        System.out.println("******Get OF Port Statistics: " + ofStatsManager.getOFPortStatistics(bi).toString() + "***********");
 	return;
     }
 }

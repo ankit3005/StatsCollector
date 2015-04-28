@@ -14,6 +14,7 @@ import org.apache.felix.dm.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.opendaylight.controller.protocol_plugin.openflow.IOFStatisticsManager;
 import org.opendaylight.controller.sal.core.ComponentActivatorAbstractBase;
 import org.opendaylight.controller.sal.packet.IListenDataPacket;
 import org.opendaylight.controller.sal.packet.IDataPacketService;
@@ -90,6 +91,15 @@ public class Activator extends ComponentActivatorAbstractBase {
             c.add(createContainerServiceDependency(containerName).setService(
                     IFlowProgrammerService.class).setCallbacks(
                     "setFlowProgrammerService", "unsetFlowProgrammerService")
+                    .setRequired(true));
+            c.add(createContainerServiceDependency(containerName).setService(
+                    IFlowProgrammerService.class).setCallbacks(
+                    "setFlowProgrammerService", "unsetFlowProgrammerService")
+                    .setRequired(true));
+
+            c.add(createContainerServiceDependency(containerName).setService(
+                    IOFStatisticsManager.class).setCallbacks(
+                    "setOFStatisticsManager", "unsetOFStatisticsManager")
                     .setRequired(true));
         }
     }
